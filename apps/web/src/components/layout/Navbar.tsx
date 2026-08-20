@@ -54,6 +54,11 @@ export function Navbar() {
               <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
                 <Link href="/dashboard">Dashboard</Link>
               </Button>
+              {user.role === "ADMIN" && (
+                <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+                  <Link href="/admin/kyc">Admin</Link>
+                </Button>
+              )}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button className="rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
@@ -72,6 +77,11 @@ export function Navbar() {
                   <DropdownMenuItem asChild>
                     <Link href="/account">Account</Link>
                   </DropdownMenuItem>
+                  {user.role === "ADMIN" && (
+                    <DropdownMenuItem asChild>
+                      <Link href="/admin/kyc">Admin</Link>
+                    </DropdownMenuItem>
+                  )}
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onSelect={handleLogout}>Log out</DropdownMenuItem>
                 </DropdownMenuContent>
