@@ -6,10 +6,11 @@ interface TrustGateNoticeProps {
 }
 
 /**
- * Shown when a mutating call fails with 403 USR_005 (trust gate). The
- * backend doesn't expose trustStatus on GET /users/me, so this is reactive
- * — surfaced only once the server actually rejects an action — rather than
- * a persistent dashboard banner.
+ * Shown when a mutating call fails with 403 USR_005 (trust gate). This is
+ * still reactive — surfaced only once the server actually rejects an
+ * action — rather than a persistent dashboard banner; the account page's
+ * KycSection is the proactive counterpart, driven by GET /users/me's
+ * trustStatus.
  */
 export function TrustGateNotice({ action = "do this" }: TrustGateNoticeProps) {
   return (

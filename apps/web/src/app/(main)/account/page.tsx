@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { usersApi } from "@rent-anything/api-client";
 import { useAuthStore } from "@/lib/auth-store";
 import { ProfileSummary } from "@/components/account/ProfileSummary";
+import { KycSection } from "@/components/account/KycSection";
 import { ChangePasswordForm } from "@/components/account/ChangePasswordForm";
 import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -27,6 +28,7 @@ export default function AccountPage() {
     <div className="mx-auto max-w-2xl space-y-6 px-4 py-12">
       <h1 className="text-2xl font-semibold tracking-tight">Account</h1>
       {isLoading || !user ? <Skeleton className="h-48 w-full" /> : <ProfileSummary user={user} />}
+      <KycSection />
       <ChangePasswordForm />
       <Card>
         <CardHeader>

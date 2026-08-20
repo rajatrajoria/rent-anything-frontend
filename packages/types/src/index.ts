@@ -3,3 +3,4 @@ export * from "./user";
 export * from "./item";
 export * from "./booking";
 export * from "./categories";
+export * from "./kyc";

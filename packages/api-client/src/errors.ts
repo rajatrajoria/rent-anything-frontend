@@ -38,6 +38,12 @@ export const ERROR_MESSAGES: Partial<Record<ErrorCode, string>> = {
   ITM_002: "This listing is no longer active.",
   ITM_010: "You need between 2 and 5 photos.",
   ITM_012: "One of your images is too large (max 10MB).",
+  KYC_002: "Please fill in all required fields.",
+  KYC_003: "Please choose a valid ID document type.",
+  KYC_004: "One of your documents is too large (max 10MB).",
+  KYC_005: "Documents must be JPEG, PNG, or WEBP images.",
+  KYC_006: "This submission has already been reviewed.",
+  KYC_007: "You can't resubmit while your verification is pending or already approved.",
 };
 
 export function messageFor(error: ApiClientError): string {

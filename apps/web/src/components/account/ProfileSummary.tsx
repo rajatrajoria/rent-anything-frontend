@@ -31,6 +31,10 @@ export function ProfileSummary({ user }: { user: UserProfileResponse }) {
           <Badge variant={user.isVerified ? "confirmed" : "secondary"}>{user.isVerified ? "Yes" : "No"}</Badge>
         </div>
         <div className="flex justify-between">
+          <span className="text-muted-foreground">Trust status</span>
+          <Badge variant={user.trustStatus === "TRUSTED" ? "confirmed" : "secondary"}>{user.trustStatus}</Badge>
+        </div>
+        <div className="flex justify-between">
           <span className="text-muted-foreground">Member since</span>
           <span>{new Date(user.createdAt).toLocaleDateString()}</span>
         </div>
