@@ -15,3 +15,4 @@ export * as usersApi from "./endpoints/users";
 export * as itemsApi from "./endpoints/items";
 export * as itemImagesApi from "./endpoints/itemImages";
 export * as bookingsApi from "./endpoints/bookings";
+export * as kycApi from "./endpoints/kyc";

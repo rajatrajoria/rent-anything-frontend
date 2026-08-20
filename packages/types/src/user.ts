@@ -8,11 +8,7 @@ export interface AuthResponse {
   refreshToken: string;
 }
 
-/**
- * The caller's own profile. Notably has no trustStatus field — the backend
- * doesn't expose it here, so trust-gating in the UI must be reactive
- * (driven by catching USR_005 on a mutating call), not read proactively.
- */
+/** The caller's own profile. */
 export interface UserProfileResponse {
   id: number;
   email: string;
@@ -22,6 +18,7 @@ export interface UserProfileResponse {
   role: UserRole;
   createdAt: string;
   updatedAt: string;
+  trustStatus: TrustStatus;
 }
 
 export interface LoginRequest {
