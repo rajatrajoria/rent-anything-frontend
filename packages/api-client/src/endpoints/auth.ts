@@ -1,6 +1,6 @@
 import type { AuthResponse, LoginRequest } from "@rent-anything/types";
-import { request } from "../httpClient";
-import { clearSessionTokens, getRefreshToken, setSessionTokens } from "../tokenStore";
+import { refreshSession, request } from "../httpClient";
+import { clearSessionTokens, setSessionTokens } from "../tokenStore";
 
 export async function signup(email: string, password: string): Promise<number> {
   const userId = await request<number>("/auth/signup", {
@@ -53,21 +53,14 @@ export function logoutLocal(): void {
  * Called once on app load. If a refresh token survived from a previous
  * visit, exchange it for a fresh access token so the session survives a
  * page reload. Returns whether a session was restored.
+ *
+ * Delegates to the shared single-flight refreshSession() rather than
+ * issuing its own /auth/refresh call: refresh tokens rotate on every use,
+ * so two concurrent restoreSession() calls (e.g. React StrictMode's
+ * double-invoked mount effect) racing on the same stored token would
+ * otherwise cause one to fail and clear the session the other just
+ * established.
  */
 export async function restoreSession(): Promise<boolean> {
-  const refreshToken = getRefreshToken();
-  if (!refreshToken) return false;
-  try {
-    const auth = await request<AuthResponse>("/auth/refresh", {
-      method: "POST",
-      query: { refreshToken },
-      skipAuth: true,
-    });
-    if (!auth) return false;
-    setSessionTokens(auth.accessToken, auth.refreshToken);
-    return true;
-  } catch {
-    clearSessionTokens();
-    return false;
-  }
+  return refreshSession();
 }

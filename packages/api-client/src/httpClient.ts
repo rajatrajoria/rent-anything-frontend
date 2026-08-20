@@ -55,8 +55,8 @@ async function parseEnvelope<T>(response: Response): Promise<T | undefined> {
 
 let refreshInFlight: Promise<boolean> | null = null;
 
-/** Single-flight: concurrent 401s share one /auth/refresh call. */
-async function refreshSession(): Promise<boolean> {
+/** Single-flight: concurrent 401s (and concurrent restoreSession calls) share one /auth/refresh call. */
+export async function refreshSession(): Promise<boolean> {
   if (!refreshInFlight) {
     refreshInFlight = doRefresh().finally(() => {
       refreshInFlight = null;

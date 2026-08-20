@@ -26,8 +26,11 @@ function VerifyEmailContent() {
     token ? null : "This verification link is missing its token."
   );
 
+  const requestedTokenRef = React.useRef<string | null>(null);
+
   React.useEffect(() => {
-    if (!token) return;
+    if (!token || requestedTokenRef.current === token) return;
+    requestedTokenRef.current = token;
     authApi
       .verifyEmail(token)
       .then(() => setStatus("success"))
